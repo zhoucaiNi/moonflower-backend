@@ -15,7 +15,6 @@ const handlePostCreate = async (req, res) => {
   const postFields = req.body;
   try {
     // use req.body etc to await some contoller function
-    console.log('bruh');
     const result = await Posts.createPost(postFields);
     // send back the result
     res.json(result);
@@ -70,7 +69,11 @@ const handleDelete = async (req, res) => {
     // use req.body etc to await some contoller function
     const result = await Posts.deletePost(id);
     // send back the result
-    res.json(result);
+    if (result == null) {
+      res.status(404).json(null);
+    } else {
+      res.json(result);
+    }
   } catch (error) {
     // or catch the error and send back an error
     res.status(401).json({ error });
