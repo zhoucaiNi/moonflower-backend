@@ -20,6 +20,7 @@ export async function getPosts() {
   // await finding posts
   try {
     const posts = await Post.find();
+    console.log(posts);
     return posts;
   } catch (error) {
     throw new Error(`get posts error: ${error}`);

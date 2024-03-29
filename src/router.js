@@ -27,7 +27,9 @@ const handlePostCreate = async (req, res) => {
 const handleGetAllPost = async (req, res) => {
   try {
     // use req.body etc to await some contoller function
+
     const result = await Posts.getPosts();
+
     // send back the result
     res.json(result);
   } catch (error) {
@@ -80,9 +82,11 @@ const handleDelete = async (req, res) => {
   }
 };
 
-router.route('/posts')
-  .post(handlePostCreate)
+router.route('/posts/all')
   .get(handleGetAllPost);
+
+router.route('/posts/new')
+  .post(handlePostCreate);
 
 router.route('/posts/:id')
   .put(handlePut)
