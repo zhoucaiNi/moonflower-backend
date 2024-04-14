@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import * as Posts from './controllers/post_controller';
+import * as Notes from './controllers/note_controller';
 
 const router = Router();
 
@@ -9,13 +9,13 @@ router.get('/', (req, res) => {
 
 /// your routes will go here
 
-// create a post
+// create a Note
 
-const handlePostCreate = async (req, res) => {
-  const postFields = req.body;
+const handleNoteCreate = async (req, res) => {
+  const NoteFields = req.body;
   try {
     // use req.body etc to await some contoller function
-    const result = await Posts.createPost(postFields);
+    const result = await Notes.createNote(NoteFields);
     // send back the result
     res.json(result);
   } catch (error) {
@@ -24,11 +24,11 @@ const handlePostCreate = async (req, res) => {
   }
 };
 
-const handleGetAllPost = async (req, res) => {
+const handleGetAllNote = async (req, res) => {
   try {
     // use req.body etc to await some contoller function
 
-    const result = await Posts.getPosts();
+    const result = await Notes.getNotes();
 
     // send back the result
     res.json(result);
@@ -40,10 +40,10 @@ const handleGetAllPost = async (req, res) => {
 
 const handlePut = async (req, res) => {
   const { id } = req.params;
-  const postFields = req.body;
+  const NoteFields = req.body;
   try {
     // use req.body etc to await some contoller function
-    const result = await Posts.updatePost(id, postFields);
+    const result = await Notes.updateNote(id, NoteFields);
     // send back the result
     res.json(result);
   } catch (error) {
@@ -52,11 +52,11 @@ const handlePut = async (req, res) => {
   }
 };
 
-const handlePostGet = async (req, res) => {
+const handleNoteGet = async (req, res) => {
   const { id } = req.params;
   try {
     // use req.body etc to await some contoller function
-    const result = await Posts.getPost(id);
+    const result = await Notes.getNote(id);
     // send back the result
     res.json(result);
   } catch (error) {
@@ -69,7 +69,7 @@ const handleDelete = async (req, res) => {
   const { id } = req.params;
   try {
     // use req.body etc to await some contoller function
-    const result = await Posts.deletePost(id);
+    const result = await Notes.deleteNote(id);
     // send back the result
     if (result == null) {
       res.status(404).json(null);
@@ -82,15 +82,15 @@ const handleDelete = async (req, res) => {
   }
 };
 
-router.route('/posts/all')
-  .get(handleGetAllPost);
+router.route('/notes/all')
+  .get(handleGetAllNote);
 
-router.route('/posts/new')
-  .post(handlePostCreate);
+router.route('/notes/new')
+  .post(handleNoteCreate);
 
-router.route('/posts/:id')
+router.route('/notes/:id')
   .put(handlePut)
-  .get(handlePostGet)
+  .get(handleNoteGet)
   .delete(handleDelete);
 
 export default router;
